@@ -14,6 +14,7 @@ after login, http://localhost:8080/welcome is loaded, with two links to http://l
 
 The UI is not nice, not friendly, but works.
 Refresh after DB operation sometimes not works (JSF spiritual world..)
+Can be optimized, strengthen the security, but as this is a simple try-this-try-that app, that probably won't happen ever.
 
 Kipróbáltam ezt, meg azt, tervezés nélkül, improvizatív módon, CRUD szerű kívánságlistás app, néhány admin funkcióval, jogosultságkezeléssel, nyilvánosan linkelhető kívánságlistával.
 Össze-Vissza keverve Spring boot, spring mvc, spring data, spring security, JSF, JSP (takarodj!), H2 DB, stb.
@@ -30,5 +31,10 @@ Bejelentkezés után, http://localhost:8080/welcome irányít, ahol 2 link van h
 
 Nem szép a felület, UI design az van ami default, de egyszerű. Néhány gomb/elem, csak a megfelelő kitöltések, kijelölésektől lesz aktív/látható.
 DB művelet utáni frissítés nem mindig működik valamiért, JSF lelki világába kellene beleásni, majd egyszer...
+Lehetne sokat optimalizálni, megerősíteni a biztonságot, de egy próbálgatós teszt app-nál ez valószínű soha nem fog megtörténni.
 
-Bla bla...
+
+Java-t használtam, mert ebben van vállalati szerű tapasztalatom, Spring BOOT, és a Spring framework elég hasznos dolog, hiszen a vállalati fejlesztés minden területére nyújt megoldást, sokat egyszerűsít.
+
+A UI rész (legnehezebb) pedig kísérletezés volt, ahol a régi JSF-es tapasztalataimat próbáltam feleleveníteni, a konklúzó pedig az, hogy még most sem találtam igazán jónak mondható UI frameworkot.
+Az egész improvizálva van, így eléggé keverve vannak a dolgok, és sokat lehetne optimalizálni rajta, és a biztonságra is rá lehetne dolgozni, HA ez egy éles projekt lenne, és nem csak egy teszt feladat.
