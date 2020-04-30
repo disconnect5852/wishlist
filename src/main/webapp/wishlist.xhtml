@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>My wishlists</title>
+</h:head>
+<h:body>
+	<p:button href="#{request.contextPath}/welcome" value="Welcome page" />
+	<h:form>
+		<p:dataTable value="#{wishlistBean.wishlists}" var="wishlist"
+			selectionMode="single" selection="#{wishlistBean.selectedWishlist}"
+			rowKey="#{wishlist.id}">
+			<p:ajax event="rowSelect" update="wishelemparent @form:deletelist" />
+			<f:facet name="header">
+            Wishlist list
+        </f:facet>
+			<!-- 			<p:column headerText="id"> -->
+			<!-- 				<h:outputText value="#{wishlist.id}" /> -->
+			<!-- 			</p:column> -->
+			<p:column headerText="name" sortBy="#{wishlist.name}">
+				<h:outputText value="#{wishlist.name}" />
+			</p:column>
+			<p:column headerText="createdate" sortBy="#{wishlist.createDate}">
+				<h:outputText value="#{wishlist.createDate}" />
+			</p:column>
+		</p:dataTable>
+		<h:inputText value="#{wishlistBean.newwishlistname}">
+			<p:ajax event="blur" update="newlist" />
+		</h:inputText>
+		<p:commandButton id="newlist"
+			disabled="#{empty wishlistBean.newwishlistname}" value="new wishlist"
+			actionListener="#{wishlistBean.newList}" update="@form"/>
+		<p:commandButton id="deletelist"
+			disabled="#{empty wishlistBean.selectedWishlist}" value="delete selected wishlist"
+			actionListener="#{wishlistBean.deleteList}" update="@form"/>
+	</h:form>
+
+	<!-- rendered="#{! empty wishlistBean.selectedWishlist}" -->
+	<p:outputPanel id="wishelemparent" style="display:block">
+	<h:form id="wishelements" rendered="#{!empty wishlistBean.selectedWishlist}">
+		<h:outputLink value="#{request.contextPath}/public/publicwish/#{wishlistBean.selectedWishlist.id}">Public link to selected wishlist</h:outputLink>
+		<p:dataTable value="#{wishlistBean.selectedWishlist.elements}"
+			var="wishlistelem" selectionMode="single"
+			selection="#{wishlistBean.selectedElement}"
+			rowKey="#{wishlistelem.id}">
+			<p:ajax event="rowSelect" listener="#{wishlistBean.setElementInputs}"
+				update="wishelements:elementeditor" />
+			<f:facet name="header">
+            Wishes of wishlist
+        </f:facet>
+			<!-- 			<p:column headerText="id"> -->
+			<!-- 				<h:outputText value="#{wishlist.id}" /> -->
+			<!-- 			</p:column> -->
+			<p:column headerText="name">
+				<h:outputText value="#{wishlistelem.name}" />
+			</p:column>
+			<p:column headerText="price">
+				<h:outputText value="#{wishlistelem.price}" />
+			</p:column>
+			<p:column headerText="createdate">
+				<h:outputText value="#{wishlistelem.createDate}" />
+			</p:column>
+		</p:dataTable>
+		<p:outputPanel id="elementeditor" style="display:block">
+			<h:inputText value="#{wishlistBean.newwishelementname}">
+				<p:ajax event="blur" update="newelement,editelement" />
+			</h:inputText>
+			<p:inputNumber value="#{wishlistBean.newwishelementprice}"
+				minValue="0" maxValue="2000000000" decimalPlaces="0" />
+			<p:commandButton id="newelement"
+				disabled="#{empty wishlistBean.newwishelementname}" update="@form"
+				value="new wish" actionListener="#{wishlistBean.newListElement}" />
+			<p:commandButton id="editelement"
+				disabled="#{empty wishlistBean.newwishelementname or empty wishlistBean.selectedElement}"
+				update="@form" value="edit selected wish"
+				actionListener="#{wishlistBean.editListElement}" />
+			<p:commandButton id="deleteelement"
+				disabled="#{empty wishlistBean.selectedElement}" update="@form"
+				value="delete selected wish"
+				actionListener="#{wishlistBean.deleteListElement}" />
+		</p:outputPanel>
+	</h:form>
+	</p:outputPanel>
+</h:body>
+</html>
